@@ -5,5 +5,5 @@
     <dimen name="spacing_small">8dp</dimen>
 
     <dimen name="header_font_size">24sp</dimen>
-    <dimen name="body_font_size">24sp</dimen>
+    <dimen name="body_font_size">16sp</dimen>
 </resources>
