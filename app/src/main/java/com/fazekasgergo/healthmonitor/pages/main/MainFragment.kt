@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.fazekasgergo.healthmonitor.databinding.FragmentMainBinding
@@ -19,7 +20,7 @@ class MainFragment : Fragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(layoutInflater, container, false)
 
-        binding.nextPageButton.setOnClickListener {
+        binding.takeTestButton.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(MainFragmentDirections.actionMainFragmentToQuestionFragment())
         }
         return binding.root

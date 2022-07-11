@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Health Monitor</string>
     <string name="hello_blank_fragment">Questions</string>
+
+    <string name="main_header">How healthy are you?</string>
+    <string name="main_body">Take this test and see if you need to get some routine medical tests.</string>
+    <string name="take_test">Take the test</string>
+    <string name="main_image_description">3 people, each holding a big puzzle piece</string>
 </resources>

@@ -7,14 +7,50 @@
     android:layout_height="match_parent"
     tools:context=".pages.main.MainFragment">
 
-    <Button
-        android:id="@+id/next_page_button"
+    <ImageView
+        android:id="@+id/main_image"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/main_image_description"
+        android:scaleType="fitCenter"
+        android:src="@drawable/main_icon"
+        app:layout_constraintLeft_toLeftOf="@id/main_header"
+        app:layout_constraintRight_toRightOf="@id/main_header"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/main_header"
+        style="@style/header_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go to 2. page"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/main_header"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_image" />
+
+    <TextView
+        android:id="@+id/main_body"
+        style="@style/body_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:paddingHorizontal="@dimen/spacing_large"
+        android:text="@string/main_body"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_header" />
+
+    <Button
+        android:id="@+id/take_test_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:backgroundTint="@color/blue"
+        android:text="@string/take_test"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/main_body" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
