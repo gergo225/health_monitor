@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="header_text">
+        <item name="android:textSize">@dimen/header_font_size</item>
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="body_text">
+        <item name="android:textSize">@dimen/body_font_size</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>
