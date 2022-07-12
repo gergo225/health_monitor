@@ -31,4 +31,10 @@ class MainFragment : Fragment() {
         _binding = null
     }
 
+    override fun onResume() {
+        super.onResume()
+        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
+        actionBar?.subtitle = ""
+    }
+
 }

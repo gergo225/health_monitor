@@ -18,5 +18,17 @@
         android:id="@+id/question_dest"
         android:name="com.fazekasgergo.healthmonitor.pages.questions.QuestionFragment"
         android:label="Health Test"
-        tools:layout="@layout/fragment_question" />
+        tools:layout="@layout/fragment_question" >
+        <action
+            android:id="@+id/action_question_dest_self"
+            app:destination="@id/question_dest" />
+        <action
+            android:id="@+id/action_question_dest_to_resultsFragment"
+            app:destination="@id/results_dest" />
+    </fragment>
+    <fragment
+        android:id="@+id/results_dest"
+        android:name="com.fazekasgergo.healthmonitor.pages.results.ResultsFragment"
+        android:label="Results"
+        tools:layout="@layout/fragment_results" />
 </navigation>
