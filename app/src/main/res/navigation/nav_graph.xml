@@ -24,7 +24,8 @@
             app:destination="@id/question_dest" />
         <action
             android:id="@+id/action_question_dest_to_resultsFragment"
-            app:destination="@id/results_dest" />
+            app:destination="@id/results_dest"
+            app:popUpTo="@id/main_dest" />
     </fragment>
     <fragment
         android:id="@+id/results_dest"
