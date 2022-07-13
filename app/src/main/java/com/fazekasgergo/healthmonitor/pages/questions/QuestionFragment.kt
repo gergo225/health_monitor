@@ -32,16 +32,14 @@ class QuestionFragment : Fragment() {
         val navController = findNavController()
 
         viewModel.eventFinishedQuestions.observe(viewLifecycleOwner) {
-            if (it) {
+            if (it != null && it) {
                 navController.navigate(QuestionFragmentDirections.actionQuestionDestToResultsFragment())
-                viewModel.onFinishedQuestionsEventCompleted()
             }
         }
 
         viewModel.eventGoToNextQuestion.observe(viewLifecycleOwner) {
-            if (it) {
+            if (it != null && it) {
                 navController.navigate(QuestionFragmentDirections.actionQuestionDestSelf())
-                viewModel.onGoToNextQuestionEventCompleted()
             }
         }
 

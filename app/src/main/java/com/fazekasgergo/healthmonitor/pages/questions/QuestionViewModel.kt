@@ -16,7 +16,6 @@ class QuestionViewModel : ViewModel() {
     private val _eventFinishedQuestions = MutableLiveData<Boolean>()
     val eventFinishedQuestions: LiveData<Boolean> get() = _eventFinishedQuestions
 
-
     init {
         _questionNumber.value = 0
     }
@@ -40,18 +39,13 @@ class QuestionViewModel : ViewModel() {
 
     private fun onGoToNextQuestionEvent() {
         _eventGoToNextQuestion.value = true
+        _eventGoToNextQuestion.value = null
     }
 
-    fun onGoToNextQuestionEventCompleted() {
-        _eventGoToNextQuestion.value = false
-    }
 
     private fun onFinishedQuestionsEvent() {
         _eventFinishedQuestions.value = true
-    }
-
-    fun onFinishedQuestionsEventCompleted() {
-        _eventFinishedQuestions.value = false
+        _eventFinishedQuestions.value = null
     }
 
 }
