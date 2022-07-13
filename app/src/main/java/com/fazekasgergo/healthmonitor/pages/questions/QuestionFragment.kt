@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -48,8 +49,8 @@ class QuestionFragment : Fragment() {
 
         viewModel.currentQuestion.observe(viewLifecycleOwner) {
             when (it) {
-                is Question.ChooseQuestion -> setChooseQuestion(container)
-                is Question.InputQuestion -> setInputQuestion(container)
+                is Question.ChooseQuestion -> setChooseQuestion(container, it)
+                is Question.InputQuestion -> setInputQuestion(container, it)
             }
         }
 
@@ -61,7 +62,7 @@ class QuestionFragment : Fragment() {
         super.onDestroy()
     }
 
-    private fun setChooseQuestion(container: ViewGroup?) {
+    private fun setChooseQuestion(container: ViewGroup?, question: Question) {
         val chooseQuestionBinding =
             FragmentChooseQuestionBinding.inflate(
                 layoutInflater,
@@ -72,10 +73,15 @@ class QuestionFragment : Fragment() {
         binding.root.addView(chooseQuestionBinding.root.rootView)
     }
 
-    private fun setInputQuestion(container: ViewGroup?) {
+    private fun setInputQuestion(container: ViewGroup?, question: Question) {
         val inputQuestionBinding =
             FragmentInputQuestionBinding.inflate(layoutInflater, container, false)
-        inputQuestionBinding.nextButton2.setOnClickListener { viewModel.nextQuestion() }
+        inputQuestionBinding.inputQuestionText.text = question.questionText
+        inputQuestionBinding.inputQuestionEditText.setOnEditorActionListener {_, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE)
+                viewModel.nextQuestion()
+            true
+        }
         binding.root.addView(inputQuestionBinding.root.rootView)
     }
 }

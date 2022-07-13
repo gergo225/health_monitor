@@ -6,4 +6,5 @@
     <string name="main_body">Take this test and see if you need to get some routine medical tests.</string>
     <string name="take_test">Take the test</string>
     <string name="main_image_description">3 people, each holding a big puzzle piece</string>
+    <string name="scale_image_description">A weighing scale</string>
 </resources>
