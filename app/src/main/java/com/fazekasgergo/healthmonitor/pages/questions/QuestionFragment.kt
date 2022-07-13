@@ -77,6 +77,7 @@ class QuestionFragment : Fragment() {
         val inputQuestionBinding =
             FragmentInputQuestionBinding.inflate(layoutInflater, container, false)
         inputQuestionBinding.inputQuestionText.text = question.questionText
+        inputQuestionBinding.inputQuestionIcon.setImageResource(question.resourceIds.first())
         inputQuestionBinding.inputQuestionEditText.setOnEditorActionListener {_, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE)
                 viewModel.nextQuestion()
