@@ -26,7 +26,7 @@ class QuestionFragment : Fragment() {
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
         viewModel = ViewModelProvider(requireActivity())[QuestionViewModel::class.java]
         viewModel.questionNumber.observe(viewLifecycleOwner) {
-            actionBar?.subtitle = "$it of ${viewModel.totalQuestions}"
+            actionBar?.subtitle = "${it + 1} of ${viewModel.totalQuestions}"
         }
 
         val navController = findNavController()

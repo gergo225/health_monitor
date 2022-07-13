@@ -18,14 +18,14 @@ class QuestionViewModel : ViewModel() {
 
 
     init {
-        _questionNumber.value = 1
+        _questionNumber.value = 0
     }
 
     fun nextQuestion() {
         val nextQuestionNumber = questionNumber.value?.plus(1)
         if (nextQuestionNumber != null) {
-            if (nextQuestionNumber == totalQuestions + 1) onFinishedQuestionsEvent()
-            else if (nextQuestionNumber <= totalQuestions) {
+            if (nextQuestionNumber >= totalQuestions) onFinishedQuestionsEvent()
+            else if (nextQuestionNumber < totalQuestions) {
                 _questionNumber.value = nextQuestionNumber
                 onGoToNextQuestionEvent()
             }
@@ -34,7 +34,7 @@ class QuestionViewModel : ViewModel() {
 
     fun previousQuestion() {
         val previousQuestionNumber = questionNumber.value?.minus(1)
-        if (previousQuestionNumber != null && previousQuestionNumber >= 1)
+        if (previousQuestionNumber != null && previousQuestionNumber >= 0)
             _questionNumber.value = previousQuestionNumber
     }
 
