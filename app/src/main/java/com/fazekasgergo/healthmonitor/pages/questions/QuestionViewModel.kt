@@ -4,10 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.fazekasgergo.healthmonitor.R
 
 class QuestionViewModel : ViewModel() {
     private val questions: Array<Question> = arrayOf(
-        Question.ChooseQuestion("Select a Gender", arrayOf(GenderOption.FEMALE, GenderOption.MALE)),
+        Question.ChooseQuestion(
+            "Select a Gender", arrayOf(GenderOption.FEMALE, GenderOption.MALE),
+            arrayOf(R.drawable.ic_female, R.drawable.ic_male)
+        ),
         Question.ChooseQuestion(
             "Select your Age Group",
             arrayOf(
@@ -17,10 +21,11 @@ class QuestionViewModel : ViewModel() {
                 AgeGroups.NINETEEN_THIRTY,
                 AgeGroups.THIRTYONE_FIFTY,
                 AgeGroups.FIFTY_PLUS
-            )
+            ),
+            arrayOf()
         ),
-        Question.InputQuestion("Enter your weight (kg)"),
-        Question.InputQuestion("Enter you height (cm)"),
+        Question.InputQuestion("Enter your weight (kg)", R.drawable.ic_scale),
+        Question.InputQuestion("Enter you height (cm)", R.drawable.ic_measuring),
         Question.ChooseQuestion(
             "Are you a smoker?",
             arrayOf(
@@ -28,6 +33,12 @@ class QuestionViewModel : ViewModel() {
                 TobaccoConsumption.PASSIVE,
                 TobaccoConsumption.EX_SMOKER,
                 TobaccoConsumption.SMOKER
+            ),
+            arrayOf(
+                R.drawable.ic_non_smoker,
+                R.drawable.ic_passive_smoker,
+                R.drawable.ic_ex_smoker,
+                R.drawable.ic_smoker
             )
         ),
         Question.ChooseQuestion(
@@ -37,6 +48,12 @@ class QuestionViewModel : ViewModel() {
                 AlcoholConsumption.OCCASIONAL,
                 AlcoholConsumption.WEEKLY,
                 AlcoholConsumption.DAILY
+            ),
+            arrayOf(
+                R.drawable.ic_no_alcohol,
+                R.drawable.ic_occasional_alcohol,
+                R.drawable.ic_every_week_alcohol,
+                R.drawable.ic_every_day_alcohol
             )
         )
     )
