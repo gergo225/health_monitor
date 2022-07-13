@@ -2,13 +2,53 @@ package com.fazekasgergo.healthmonitor.pages.questions
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 
 class QuestionViewModel : ViewModel() {
-    val totalQuestions = 6
+    private val questions: Array<Question> = arrayOf(
+        Question.ChooseQuestion("Select a Gender", arrayOf(GenderOption.FEMALE, GenderOption.MALE)),
+        Question.ChooseQuestion(
+            "Select your Age Group",
+            arrayOf(
+                AgeGroups.TWO_FIVE,
+                AgeGroups.SIX_THIRTEEN,
+                AgeGroups.FOURTEEN_EIGHTEEN,
+                AgeGroups.NINETEEN_THIRTY,
+                AgeGroups.THIRTYONE_FIFTY,
+                AgeGroups.FIFTY_PLUS
+            )
+        ),
+        Question.InputQuestion("Enter your weight (kg)"),
+        Question.InputQuestion("Enter you height (cm)"),
+        Question.ChooseQuestion(
+            "Are you a smoker?",
+            arrayOf(
+                TobaccoConsumption.NON_SMOKER,
+                TobaccoConsumption.PASSIVE,
+                TobaccoConsumption.EX_SMOKER,
+                TobaccoConsumption.SMOKER
+            )
+        ),
+        Question.ChooseQuestion(
+            "Do you drink alcohol?",
+            arrayOf(
+                AlcoholConsumption.NOT_AT_ALL,
+                AlcoholConsumption.OCCASIONAL,
+                AlcoholConsumption.WEEKLY,
+                AlcoholConsumption.DAILY
+            )
+        )
+    )
+
+    val totalQuestions = questions.size
 
     private val _questionNumber = MutableLiveData<Int>()
     val questionNumber: LiveData<Int> get() = _questionNumber
+
+    val currentQuestion = Transformations.map(questionNumber) { index ->
+        questions[index]
+    }
 
     private val _eventGoToNextQuestion = MutableLiveData<Boolean>()
     val eventGoToNextQuestion: LiveData<Boolean> get() = _eventGoToNextQuestion
