@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.fazekasgergo.healthmonitor.databinding.FragmentChooseQuestionBinding
+import com.fazekasgergo.healthmonitor.databinding.FragmentInputQuestionBinding
 import com.fazekasgergo.healthmonitor.databinding.FragmentQuestionBinding
 
 class QuestionFragment : Fragment() {
@@ -18,7 +20,8 @@ class QuestionFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentQuestionBinding.inflate(layoutInflater, container, false)
@@ -43,8 +46,11 @@ class QuestionFragment : Fragment() {
             }
         }
 
-        binding.nextButton.setOnClickListener {
-            viewModel.nextQuestion()
+        viewModel.currentQuestion.observe(viewLifecycleOwner) {
+            when (it) {
+                is Question.ChooseQuestion -> setChooseQuestion(container)
+                is Question.InputQuestion -> setInputQuestion(container)
+            }
         }
 
         return binding.root
@@ -53,5 +59,23 @@ class QuestionFragment : Fragment() {
     override fun onDestroy() {
         viewModel.previousQuestion()
         super.onDestroy()
+    }
+
+    private fun setChooseQuestion(container: ViewGroup?) {
+        val chooseQuestionBinding =
+            FragmentChooseQuestionBinding.inflate(
+                layoutInflater,
+                container,
+                false
+            )     // TODO: should set it to 'true', but that causes error: Views added to a FragmentContainerView must be associated with a Fragment
+        chooseQuestionBinding.nextButton.setOnClickListener { viewModel.nextQuestion() }
+        binding.root.addView(chooseQuestionBinding.root.rootView)
+    }
+
+    private fun setInputQuestion(container: ViewGroup?) {
+        val inputQuestionBinding =
+            FragmentInputQuestionBinding.inflate(layoutInflater, container, false)
+        inputQuestionBinding.nextButton2.setOnClickListener { viewModel.nextQuestion() }
+        binding.root.addView(inputQuestionBinding.root.rootView)
     }
 }
