@@ -58,22 +58,29 @@ class QuestionFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        viewModel.previousQuestion()
         super.onDestroy()
+        viewModel.previousQuestion()
     }
 
-    private fun setChooseQuestion(container: ViewGroup?, question: Question) {
+    private fun setChooseQuestion(container: ViewGroup?, question: Question.ChooseQuestion) {
         val chooseQuestionBinding =
             FragmentChooseQuestionBinding.inflate(
                 layoutInflater,
                 container,
                 false
             )     // TODO: should set it to 'true', but that causes error: Views added to a FragmentContainerView must be associated with a Fragment
-        chooseQuestionBinding.nextButton.setOnClickListener { viewModel.nextQuestion() }
+
+        chooseQuestionBinding.chooseQuestionText.text = question.questionText
+        val adapter = ChooseOptionsAdapter()
+        chooseQuestionBinding.chooseOptionsList.adapter = adapter
+        adapter.chooseOptions = question.options.toList()
+        adapter.chooseOptionIcons = question.resourceIds.toList()   // TODO: set woman/man age group's icons when on respective page
+        adapter.context = context
+        // TODO: how to listen to which button was pressed in recyclerView?
         binding.root.addView(chooseQuestionBinding.root.rootView)
     }
 
-    private fun setInputQuestion(container: ViewGroup?, question: Question) {
+    private fun setInputQuestion(container: ViewGroup?, question: Question.InputQuestion) {
         val inputQuestionBinding =
             FragmentInputQuestionBinding.inflate(layoutInflater, container, false)
         inputQuestionBinding.inputQuestionText.text = question.questionText

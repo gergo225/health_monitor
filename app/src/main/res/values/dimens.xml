@@ -6,4 +6,5 @@
 
     <dimen name="header_font_size">24sp</dimen>
     <dimen name="body_font_size">16sp</dimen>
+    <dimen name="choose_option_icon_size">128dp</dimen>
 </resources>
