@@ -74,9 +74,13 @@ class QuestionFragment : Fragment() {
         val adapter = ChooseOptionsAdapter()
         chooseQuestionBinding.chooseOptionsList.adapter = adapter
         adapter.chooseOptions = question.options.toList()
-        adapter.chooseOptionIcons = question.resourceIds.toList()   // TODO: set woman/man age group's icons when on respective page
+        adapter.chooseOptionIcons = question.resourceIds.toList()
         adapter.context = context
-        // TODO: how to listen to which button was pressed in recyclerView?
+        adapter.setOnItemButtonClickListener(object : ChooseOptionsAdapter.OnItemButtonClickListener {
+            override fun onItemButtonClick(position: Int) {
+                viewModel.nextQuestion(position)
+            }
+        })
         binding.root.addView(chooseQuestionBinding.root.rootView)
     }
 
@@ -87,7 +91,7 @@ class QuestionFragment : Fragment() {
         inputQuestionBinding.inputQuestionIcon.setImageResource(question.resourceIds.first())
         inputQuestionBinding.inputQuestionEditText.setOnEditorActionListener {_, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE)
-                viewModel.nextQuestion()
+                viewModel.nextQuestion(inputQuestionBinding.inputQuestionEditText.text.toString().toInt())
             true
         }
         binding.root.addView(inputQuestionBinding.root.rootView)

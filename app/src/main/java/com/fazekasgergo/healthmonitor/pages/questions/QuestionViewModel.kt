@@ -9,7 +9,7 @@ import com.fazekasgergo.healthmonitor.R
 class QuestionViewModel : ViewModel() {
     private val questions: Array<Question> = arrayOf(
         Question.ChooseQuestion(
-            "Select a Gender", arrayOf(GenderOption.FEMALE, GenderOption.MALE),
+            "Select a Gender", arrayOf(GenderOptions.FEMALE, GenderOptions.MALE),
             arrayOf(R.drawable.ic_female, R.drawable.ic_male)
         ),
         Question.ChooseQuestion(
@@ -57,6 +57,7 @@ class QuestionViewModel : ViewModel() {
             )
         )
     )
+    private val answers = Answers()
 
     val totalQuestions = questions.size
 
@@ -77,11 +78,36 @@ class QuestionViewModel : ViewModel() {
         _questionNumber.value = 0
     }
 
-    fun nextQuestion() {
+    private fun updateCurrentAnswer(currentAnswer: Int) {
+        when (questionNumber.value) {
+            0 -> answers.gender = GenderOptions.values()[currentAnswer]
+            1 -> answers.ageGroup = AgeGroups.values()[currentAnswer]
+            2 -> answers.weight = currentAnswer
+            3 -> answers.height = currentAnswer
+            4 -> answers.tobacco = TobaccoConsumption.values()[currentAnswer]
+            5 -> answers.alcohol = AlcoholConsumption.values()[currentAnswer]
+        }
+    }
+
+    private fun setAgeGroupIcons() {
+        val iconResourceIds =
+            if (answers.gender == GenderOptions.FEMALE)
+                arrayOf(R.drawable.ic_female_age_group1, R.drawable.ic_female_age_group2, R.drawable.ic_female_age_group3, R.drawable.ic_female_age_group4, R.drawable.ic_female_age_group5, R.drawable.ic_female_age_group6)
+             else
+                arrayOf(R.drawable.ic_male_age_group1, R.drawable.ic_male_age_group2, R.drawable.ic_male_age_group3, R.drawable.ic_male_age_group4, R.drawable.ic_male_age_group5, R.drawable.ic_male_age_group6)
+
+        questions[1].resourceIds = iconResourceIds
+    }
+
+    fun nextQuestion(currentAnswer: Int) {
+        updateCurrentAnswer(currentAnswer)
+
         val nextQuestionNumber = questionNumber.value?.plus(1)
         if (nextQuestionNumber != null) {
             if (nextQuestionNumber >= totalQuestions) onFinishedQuestionsEvent()
             else if (nextQuestionNumber < totalQuestions) {
+                if (nextQuestionNumber == 1) setAgeGroupIcons()
+
                 _questionNumber.value = nextQuestionNumber
                 onGoToNextQuestionEvent()
             }

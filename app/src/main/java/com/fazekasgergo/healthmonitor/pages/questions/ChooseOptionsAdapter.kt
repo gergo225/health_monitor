@@ -3,12 +3,14 @@ package com.fazekasgergo.healthmonitor.pages.questions
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.fazekasgergo.healthmonitor.R
 import com.fazekasgergo.healthmonitor.databinding.ChooseOptionItemViewBinding
 
 class ChooseOptionsAdapter : RecyclerView.Adapter<ChooseOptionsAdapter.ViewHolder>() {
+
+    interface OnItemButtonClickListener {
+        fun onItemButtonClick(position: Int)
+    }
 
     var chooseOptions = listOf<ChooseOption>()
         set(value) {
@@ -23,6 +25,8 @@ class ChooseOptionsAdapter : RecyclerView.Adapter<ChooseOptionsAdapter.ViewHolde
         }
 
     var context: Context? = null
+
+    private var onItemButtonClickListener: OnItemButtonClickListener? = null
 
     private var previousSelection = -1
     private var currentSelection = -1
@@ -57,6 +61,9 @@ class ChooseOptionsAdapter : RecyclerView.Adapter<ChooseOptionsAdapter.ViewHolde
 
             binding.chooseOptionButton.setOnCheckedChangeListener { _, newIsChecked ->
                 if (newIsChecked) adapter.setSelection(position)
+                if (adapter.onItemButtonClickListener != null) adapter.onItemButtonClickListener?.onItemButtonClick(
+                    position
+                )
             }
             binding.chooseOptionIcon.setImageResource(iconResourceId)
         }
@@ -80,6 +87,10 @@ class ChooseOptionsAdapter : RecyclerView.Adapter<ChooseOptionsAdapter.ViewHolde
             notifyItemChanged(currentSelection)
             previousSelection = position
         }
+    }
+
+    fun setOnItemButtonClickListener(listener: OnItemButtonClickListener) {
+        this.onItemButtonClickListener = listener
     }
 
 }

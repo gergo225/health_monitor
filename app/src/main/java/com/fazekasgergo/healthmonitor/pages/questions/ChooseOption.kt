@@ -4,7 +4,7 @@ interface ChooseOption {
     fun text(): String
 }
 
-enum class GenderOption(private val gender: String) : ChooseOption {
+enum class GenderOptions(private val gender: String) : ChooseOption {
     FEMALE("Female"),
     MALE("Male");
 
