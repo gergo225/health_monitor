@@ -57,10 +57,9 @@ class ChooseOptionsAdapter : RecyclerView.Adapter<ChooseOptionsAdapter.ViewHolde
             binding.chooseOptionButton.textOff = item.text()
             binding.chooseOptionButton.textOn = item.text()
             binding.chooseOptionButton.isChecked = isChecked
-            binding.chooseOptionButton.isClickable = !isChecked
 
             binding.chooseOptionButton.setOnCheckedChangeListener { _, newIsChecked ->
-                if (newIsChecked) adapter.setSelection(position)
+                if (newIsChecked && adapter.currentSelection != position) adapter.setSelection(position)
                 if (adapter.onItemButtonClickListener != null) adapter.onItemButtonClickListener?.onItemButtonClick(
                     position
                 )

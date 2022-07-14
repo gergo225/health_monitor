@@ -82,6 +82,7 @@ class QuestionFragment : Fragment() {
                 viewModel.nextQuestion(position)
             }
         })
+        adapter.setSelection(viewModel.currentAnswer ?: -1)
         binding.root.addView(chooseQuestionBinding.root.rootView)
     }
 
@@ -95,6 +96,7 @@ class QuestionFragment : Fragment() {
                 viewModel.nextQuestion(inputQuestionBinding.inputQuestionEditText.text.toString().toInt())
             true
         }
+        inputQuestionBinding.inputQuestionEditText.setText(viewModel.currentAnswer?.toString() ?: "")
         binding.root.addView(inputQuestionBinding.root.rootView)
     }
 }

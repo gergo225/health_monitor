@@ -59,6 +59,17 @@ class QuestionViewModel : ViewModel() {
     )
     private val answers = Answers()
 
+    val currentAnswer: Int?
+        get() = when (questionNumber.value) {
+            0 -> answers.gender?.ordinal
+            1 -> answers.ageGroup?.ordinal
+            2 -> answers.weight
+            3 -> answers.height
+            4 -> answers.tobacco?.ordinal
+            5 -> answers.alcohol?.ordinal
+            else -> null
+        }
+
     val totalQuestions = questions.size
 
     private val _questionNumber = MutableLiveData<Int>()
@@ -92,9 +103,23 @@ class QuestionViewModel : ViewModel() {
     private fun setAgeGroupIcons() {
         val iconResourceIds =
             if (answers.gender == GenderOptions.FEMALE)
-                arrayOf(R.drawable.ic_female_age_group1, R.drawable.ic_female_age_group2, R.drawable.ic_female_age_group3, R.drawable.ic_female_age_group4, R.drawable.ic_female_age_group5, R.drawable.ic_female_age_group6)
-             else
-                arrayOf(R.drawable.ic_male_age_group1, R.drawable.ic_male_age_group2, R.drawable.ic_male_age_group3, R.drawable.ic_male_age_group4, R.drawable.ic_male_age_group5, R.drawable.ic_male_age_group6)
+                arrayOf(
+                    R.drawable.ic_female_age_group1,
+                    R.drawable.ic_female_age_group2,
+                    R.drawable.ic_female_age_group3,
+                    R.drawable.ic_female_age_group4,
+                    R.drawable.ic_female_age_group5,
+                    R.drawable.ic_female_age_group6
+                )
+            else
+                arrayOf(
+                    R.drawable.ic_male_age_group1,
+                    R.drawable.ic_male_age_group2,
+                    R.drawable.ic_male_age_group3,
+                    R.drawable.ic_male_age_group4,
+                    R.drawable.ic_male_age_group5,
+                    R.drawable.ic_male_age_group6
+                )
 
         questions[1].resourceIds = iconResourceIds
     }
