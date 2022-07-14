@@ -48,6 +48,7 @@ class QuestionFragment : Fragment() {
         }
 
         viewModel.currentQuestion.observe(viewLifecycleOwner) {
+            binding.root.removeAllViews()
             when (it) {
                 is Question.ChooseQuestion -> setChooseQuestion(container, it)
                 is Question.InputQuestion -> setInputQuestion(container, it)
