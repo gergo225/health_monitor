@@ -35,7 +35,7 @@ class ChooseOptionsAdapter : RecyclerView.Adapter<ChooseOptionsAdapter.ViewHolde
         val item = chooseOptions[position]
         val icon = chooseOptionIcons[position]
         val isChecked = position == currentSelection
-        holder.bind(item, icon, isChecked, position, context!!)
+        holder.bind(item, icon, isChecked, position)
     }
 
     override fun getItemCount(): Int {
@@ -48,21 +48,16 @@ class ChooseOptionsAdapter : RecyclerView.Adapter<ChooseOptionsAdapter.ViewHolde
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(
-            item: ChooseOption, iconResourceId: Int, isChecked: Boolean,
-            position: Int, context: Context
-        ) {
+        fun bind(item: ChooseOption, iconResourceId: Int, isChecked: Boolean, position: Int) {
             binding.chooseOptionButton.text = item.text()
+            binding.chooseOptionButton.textOff = item.text()
+            binding.chooseOptionButton.textOn = item.text()
+            binding.chooseOptionButton.isChecked = isChecked
+            binding.chooseOptionButton.isClickable = !isChecked
 
-            val backgroundResource =
-                if (isChecked) R.drawable.choose_option_button_selected else R.drawable.choose_option_button_not_selected
-            val textColor =
-                if (isChecked) ContextCompat.getColor(context, R.color.white)
-                else ContextCompat.getColor(context, R.color.dark_blue)
-            binding.chooseOptionButton.setBackgroundResource(backgroundResource)
-            binding.chooseOptionButton.setTextColor(textColor)
-
-            binding.chooseOptionButton.setOnClickListener { adapter.setSelection(position) }
+            binding.chooseOptionButton.setOnCheckedChangeListener { _, newIsChecked ->
+                if (newIsChecked) adapter.setSelection(position)
+            }
             binding.chooseOptionIcon.setImageResource(iconResourceId)
         }
 
