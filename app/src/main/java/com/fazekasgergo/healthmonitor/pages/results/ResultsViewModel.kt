@@ -10,8 +10,13 @@ import kotlin.math.pow
 
 class ResultsViewModel(application: Application) : AndroidViewModel(application) {
     private val _diseaseTests = MutableLiveData<Array<DiseaseTests>>()
-    val diseaseTests: LiveData<Array<DiseaseTests>> get() = _diseaseTests
+    val diseaseTestsArray: LiveData<Array<DiseaseTests>> get() = _diseaseTests
 
+    private val _bmiVal = MutableLiveData<Float>()
+    val bmiVal: LiveData<Float> get() = _bmiVal
+
+    private val _bmiResultText = MutableLiveData<String>()
+    val bmiResultText: LiveData<String> get() = _bmiResultText
 
     fun processAnswers(answers: Answers) {
         val tests = arrayListOf<DiseaseTests>()
@@ -27,13 +32,15 @@ class ResultsViewModel(application: Application) : AndroidViewModel(application)
         val work = answers.work!!
         val familyDiseases = answers.familyDiseases!!
 
-        val bmiVal = weight / (height.toFloat() / 100).pow(2)
+        _bmiVal.value = weight / (height.toFloat() / 100).pow(2)
         val bmi =
-            if (bmiVal < 18.5) BMI.UNDERWEIGHT
-            else if (bmiVal < 25) BMI.NORMAL
-            else if (bmiVal < 30) BMI.OVERWEIGHT
-            else if (bmiVal < 35) BMI.OBESE
+            if (bmiVal.value?.compareTo(18.5) == -1) BMI.UNDERWEIGHT
+            else if (bmiVal.value?.compareTo(25) == -1) BMI.NORMAL
+            else if (bmiVal.value?.compareTo(30) == -1) BMI.OVERWEIGHT
+            else if (bmiVal.value?.compareTo(35) == -1) BMI.OBESE
             else BMI.EXTREMELY_OBESE
+
+        _bmiResultText.value = bmi.name.lowercase().replaceFirstChar { char -> char.uppercase() }
 
         val diabetes = evaluateDisease(
             arrayOf(
@@ -75,7 +82,13 @@ class ResultsViewModel(application: Application) : AndroidViewModel(application)
             5
         )
         if (cardiovascularDisease)
-            tests.add(DiseaseTests(R.string.cardio, R.array.cardio_test_names, R.array.cardio_test_descriptions))
+            tests.add(
+                DiseaseTests(
+                    R.string.cardio,
+                    R.array.cardio_test_names,
+                    R.array.cardio_test_descriptions
+                )
+            )
 
         val liverDisease = evaluateDisease(
             arrayOf(
@@ -91,7 +104,13 @@ class ResultsViewModel(application: Application) : AndroidViewModel(application)
             4
         )
         if (liverDisease)
-            tests.add(DiseaseTests(R.string.liver, R.array.liver_test_names, R.array.liver_test_descriptions))
+            tests.add(
+                DiseaseTests(
+                    R.string.liver,
+                    R.array.liver_test_names,
+                    R.array.liver_test_descriptions
+                )
+            )
 
         val kidneyDisease = evaluateDisease(
             arrayOf(
@@ -107,7 +126,13 @@ class ResultsViewModel(application: Application) : AndroidViewModel(application)
             4
         )
         if (kidneyDisease)
-            tests.add(DiseaseTests(R.string.kidney, R.array.kidney_test_names, R.array.kidney_test_descriptions))
+            tests.add(
+                DiseaseTests(
+                    R.string.kidney,
+                    R.array.kidney_test_names,
+                    R.array.kidney_test_descriptions
+                )
+            )
 
         _diseaseTests.value = tests.toTypedArray()
     }
