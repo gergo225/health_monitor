@@ -11,21 +11,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_large"
+        android:textAlignment="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Select a Gender" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="@dimen/spacing_large"
         android:id="@+id/choose_options_list"
         android:layout_width="match_parent"
-        app:spanCount="2"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/choose_question_text"
+        app:spanCount="2"
         tools:itemCount="6"
         tools:listitem="@layout/choose_option_item_view" />
 
