@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.fazekasgergo.healthmonitor.databinding.ChooseOptionItemViewBinding
 
+const val NO_IMAGE = -1
+
 class ChooseOptionsAdapter : RecyclerView.Adapter<ChooseOptionsAdapter.ViewHolder>() {
 
     interface OnItemButtonClickListener {
@@ -37,7 +39,7 @@ class ChooseOptionsAdapter : RecyclerView.Adapter<ChooseOptionsAdapter.ViewHolde
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = chooseOptions[position]
-        val icon = chooseOptionIcons[position]
+        val icon = if (chooseOptionIcons.isEmpty()) NO_IMAGE else chooseOptionIcons[position]
         val isChecked = position == currentSelection
         holder.bind(item, icon, isChecked, position)
     }
@@ -64,7 +66,11 @@ class ChooseOptionsAdapter : RecyclerView.Adapter<ChooseOptionsAdapter.ViewHolde
                     position
                 )
             }
-            binding.chooseOptionIcon.setImageResource(iconResourceId)
+            if (iconResourceId == NO_IMAGE) {
+                binding.root.removeView(binding.chooseOptionIcon)
+            } else {
+                binding.chooseOptionIcon.setImageResource(iconResourceId)
+            }
         }
 
         companion object {
