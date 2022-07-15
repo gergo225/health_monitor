@@ -37,7 +37,7 @@ class QuestionFragment : Fragment() {
 
         viewModel.eventFinishedQuestions.observe(viewLifecycleOwner) {
             if (it != null && it) {
-                navController.navigate(QuestionFragmentDirections.actionQuestionDestToResultsFragment())
+                navController.navigate(QuestionFragmentDirections.actionQuestionDestToResultsFragment(viewModel.answers))
             }
         }
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.navArgs
 import com.fazekasgergo.healthmonitor.databinding.FragmentResultsBinding
 
 class ResultsFragment : Fragment() {
@@ -15,6 +16,8 @@ class ResultsFragment : Fragment() {
 
     private var _binding: FragmentResultsBinding? = null
     private val binding get() = _binding!!
+
+    val args: ResultsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +28,10 @@ class ResultsFragment : Fragment() {
         viewModel = ViewModelProvider(this)[ResultsViewModel::class.java]
 
         resetActionBarSubtitle()
+
+        val answers = args.answers
+        // TODO: process answers
+
 
         return binding.root
     }

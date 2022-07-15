@@ -31,5 +31,9 @@
         android:id="@+id/results_dest"
         android:name="com.fazekasgergo.healthmonitor.pages.results.ResultsFragment"
         android:label="Results"
-        tools:layout="@layout/fragment_results" />
+        tools:layout="@layout/fragment_results" >
+        <argument
+            android:name="answers"
+            app:argType="com.fazekasgergo.healthmonitor.pages.questions.Answers" />
+    </fragment>
 </navigation>

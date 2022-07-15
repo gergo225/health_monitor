@@ -57,16 +57,18 @@ class QuestionViewModel : ViewModel() {
             )
         )
     )
-    private val answers = Answers()
+
+    private val _answers = Answers()
+    val answers get() = _answers
 
     val currentAnswer: Int?
         get() = when (questionNumber.value) {
-            0 -> answers.gender?.ordinal
-            1 -> answers.ageGroup?.ordinal
-            2 -> answers.weight
-            3 -> answers.height
-            4 -> answers.tobacco?.ordinal
-            5 -> answers.alcohol?.ordinal
+            0 -> _answers.gender?.ordinal
+            1 -> _answers.ageGroup?.ordinal
+            2 -> _answers.weight
+            3 -> _answers.height
+            4 -> _answers.tobacco?.ordinal
+            5 -> _answers.alcohol?.ordinal
             else -> null
         }
 
@@ -91,18 +93,18 @@ class QuestionViewModel : ViewModel() {
 
     private fun updateCurrentAnswer(currentAnswer: Int) {
         when (questionNumber.value) {
-            0 -> answers.gender = GenderOptions.values()[currentAnswer]
-            1 -> answers.ageGroup = AgeGroups.values()[currentAnswer]
-            2 -> answers.weight = currentAnswer
-            3 -> answers.height = currentAnswer
-            4 -> answers.tobacco = TobaccoConsumption.values()[currentAnswer]
-            5 -> answers.alcohol = AlcoholConsumption.values()[currentAnswer]
+            0 -> _answers.gender = GenderOptions.values()[currentAnswer]
+            1 -> _answers.ageGroup = AgeGroups.values()[currentAnswer]
+            2 -> _answers.weight = currentAnswer
+            3 -> _answers.height = currentAnswer
+            4 -> _answers.tobacco = TobaccoConsumption.values()[currentAnswer]
+            5 -> _answers.alcohol = AlcoholConsumption.values()[currentAnswer]
         }
     }
 
     private fun setAgeGroupIcons() {
         val iconResourceIds =
-            if (answers.gender == GenderOptions.FEMALE)
+            if (_answers.gender == GenderOptions.FEMALE)
                 arrayOf(
                     R.drawable.ic_female_age_group1,
                     R.drawable.ic_female_age_group2,
