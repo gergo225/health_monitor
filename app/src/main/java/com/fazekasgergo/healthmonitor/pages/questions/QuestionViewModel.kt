@@ -9,31 +9,20 @@ import com.fazekasgergo.healthmonitor.R
 class QuestionViewModel : ViewModel() {
     private val questions: Array<Question> = arrayOf(
         Question.ChooseQuestion(
-            "Select a Gender", arrayOf(GenderOptions.FEMALE, GenderOptions.MALE),
+            "Select a Gender",
+            GenderOptions.values().map { gender -> gender }.toTypedArray(),
             arrayOf(R.drawable.ic_female, R.drawable.ic_male)
         ),
         Question.ChooseQuestion(
             "Select your Age Group",
-            arrayOf(
-                AgeGroups.TWO_FIVE,
-                AgeGroups.SIX_THIRTEEN,
-                AgeGroups.FOURTEEN_EIGHTEEN,
-                AgeGroups.NINETEEN_THIRTY,
-                AgeGroups.THIRTYONE_FIFTY,
-                AgeGroups.FIFTY_PLUS
-            ),
+            AgeGroups.values().map { ageGroup -> ageGroup }.toTypedArray(),
             arrayOf()
         ),
         Question.InputQuestion("Enter your weight (kg)", R.drawable.ic_scale),
         Question.InputQuestion("Enter you height (cm)", R.drawable.ic_measuring),
         Question.ChooseQuestion(
             "Are you a smoker?",
-            arrayOf(
-                TobaccoConsumption.NON_SMOKER,
-                TobaccoConsumption.PASSIVE,
-                TobaccoConsumption.EX_SMOKER,
-                TobaccoConsumption.SMOKER
-            ),
+            TobaccoConsumption.values().map { consumption -> consumption }.toTypedArray(),
             arrayOf(
                 R.drawable.ic_non_smoker,
                 R.drawable.ic_passive_smoker,
@@ -43,18 +32,43 @@ class QuestionViewModel : ViewModel() {
         ),
         Question.ChooseQuestion(
             "Do you drink alcohol?",
-            arrayOf(
-                AlcoholConsumption.NOT_AT_ALL,
-                AlcoholConsumption.OCCASIONAL,
-                AlcoholConsumption.WEEKLY,
-                AlcoholConsumption.DAILY
-            ),
+            AlcoholConsumption.values().map { consumption -> consumption }.toTypedArray(),
             arrayOf(
                 R.drawable.ic_no_alcohol,
                 R.drawable.ic_occasional_alcohol,
                 R.drawable.ic_every_week_alcohol,
                 R.drawable.ic_every_day_alcohol
             )
+        ),
+        Question.ChooseQuestion(
+            "What type of food do you mostly eat?",
+            Food.values().map { food -> food }.toTypedArray(),
+            arrayOf(
+                R.drawable.ic_nutrition_fruits_vegetables,
+                R.drawable.ic_nutrition_meat,
+                R.drawable.ic_nutrition_vegetarian,
+                R.drawable.ic_nutrition_fast_food
+            )
+        ),
+        Question.ChooseQuestion(
+            "How is your work environment?",
+            Work.values().map {environment -> environment }.toTypedArray(),
+            arrayOf(
+                R.drawable.ic_work1,
+                R.drawable.ic_work2,
+                R.drawable.ic_work3,
+                R.drawable.ic_work4
+            )
+        ),
+        Question.ChooseQuestion(
+            "How is your blood pressure?",
+            BloodPressure.values().map { pressure -> pressure }.toTypedArray(),
+            emptyArray()
+        ),
+        Question.ChooseQuestion(
+            "What diseases run in your family?",
+            FamilyDiseases.values().map { disease -> disease }.toTypedArray(),
+            emptyArray()
         )
     )
 
@@ -69,6 +83,10 @@ class QuestionViewModel : ViewModel() {
             3 -> _answers.height
             4 -> _answers.tobacco?.ordinal
             5 -> _answers.alcohol?.ordinal
+            6 -> _answers.food?.ordinal
+            7 -> _answers.work?.ordinal
+            8 -> _answers.bloodPressure?.ordinal
+            9 -> _answers.familyDiseases?.ordinal
             else -> null
         }
 
@@ -99,6 +117,10 @@ class QuestionViewModel : ViewModel() {
             3 -> _answers.height = currentAnswer
             4 -> _answers.tobacco = TobaccoConsumption.values()[currentAnswer]
             5 -> _answers.alcohol = AlcoholConsumption.values()[currentAnswer]
+            6 -> _answers.food = Food.values()[currentAnswer]
+            7 -> _answers.work = Work.values()[currentAnswer]
+            8 -> _answers.bloodPressure = BloodPressure.values()[currentAnswer]
+            9 -> _answers.familyDiseases = FamilyDiseases.values()[currentAnswer]
         }
     }
 

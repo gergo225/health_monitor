@@ -60,7 +60,7 @@ enum class Food(private val food: String) : ChooseOption {
 }
 
 enum class Work(private val environment: String) : ChooseOption {
-    TOXIC("Toxi"),
+    TOXIC("Toxic"),
     STRESSFUL("Stressful"),
     SEDENTARY("Sedentary"),
     COMMON_LABOR("Common labor");
